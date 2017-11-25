@@ -9,7 +9,7 @@ namespace Chords
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
             Trace.WriteLine($"OnLaunch called for session {session.SessionId}");
-            return BuildSpeechletResponse("Welcome", "Say a chord name", false);
+            return BuildPlainResponse("Say a chord name", false);
         }
 
         public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
@@ -30,8 +30,8 @@ namespace Chords
             {
                 var chord = intent.Slots["chord"];
 
-                Trace.WriteLine($"Chord was : {chord.Name}, {chord.Value}");
-                return BuildSpeechletResponse("Chord", "You said " + chord.Value, false);
+                Trace.WriteLine($"Chord was: {chord.Value}");
+                return BuildSsmlResponse("You said <break time=\"100ms\"/> " + chord.Value, false);
             }
 
             Trace.WriteLine("About to fail");
@@ -43,16 +43,20 @@ namespace Chords
             Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
         }
 
-        private SpeechletResponse BuildSpeechletResponse(string title, string output, bool shouldEndSession)
+        private SpeechletResponse BuildPlainResponse(string output, bool shouldEndSession)
         {
             return new SpeechletResponse
             {
-                Card = new SimpleCard
-                {
-                    Title = $"SessionSpeechlet - {title}",
-                    Content = $"SessionSpeechlet - {output}"
-                },
                 OutputSpeech = new PlainTextOutputSpeech { Text = output },
+                ShouldEndSession = shouldEndSession
+            };
+        }
+
+        private SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
+        {
+            return new SpeechletResponse
+            {
+                OutputSpeech = new SsmlOutputSpeech { Ssml = output },
                 ShouldEndSession = shouldEndSession
             };
         }
