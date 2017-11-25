@@ -34,6 +34,7 @@ namespace Chords
                 return BuildSpeechletResponse("Chord", "You said " + chord.Value, false);
             }
 
+            Trace.WriteLine("About to fail");
             throw new SpeechletException("Invalid Intent");
         }
 
