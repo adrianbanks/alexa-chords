@@ -7,7 +7,7 @@ namespace Chords
     {
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
-            return BuildSpeechletResponse("Welcome", "Welcome to the Alexa piano chords skill. Please say a chord name.", false);
+            return BuildSpeechletResponse("Welcome", "Say a chord name", false);
         }
 
         public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
