@@ -22,7 +22,7 @@ namespace Chords
             if ("ChordIntent".Equals(intentName))
             {
                 var chord = intent.Slots["chord"];
-                return BuildSpeechletResponse("Chord", "You said " + chord, false);
+                return BuildSpeechletResponse("Chord", "You said " + chord.Value, false);
             }
 
             throw new SpeechletException("Invalid Intent");
