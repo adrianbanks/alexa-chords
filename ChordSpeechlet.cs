@@ -31,7 +31,7 @@ namespace Chords
                 var chord = intent.Slots["chord"];
 
                 Trace.WriteLine($"Chord was: {chord.Value}");
-                return BuildSsmlResponse("You said <break time=\"100ms\"/> " + chord.Value, false);
+                return BuildSsmlResponse($"You said <break time=\"100ms\"/> <emphasis level=\"strong\">{chord.Value}</emphasis>", false);
             }
 
             Trace.WriteLine("About to fail");
