@@ -1,4 +1,5 @@
-﻿using AlexaSkillsKit.Speechlet;
+﻿using System.Diagnostics;
+using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
 
 namespace Chords
@@ -7,21 +8,29 @@ namespace Chords
     {
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
+            Trace.WriteLine($"OnLaunch called for session {session.SessionId}");
             return BuildSpeechletResponse("Welcome", "Say a chord name", false);
         }
 
         public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
         {
+            Trace.WriteLine($"OnSessionStarted called for session {session.SessionId}");
         }
 
         public override SpeechletResponse OnIntent(IntentRequest request, Session session)
         {
+            Trace.WriteLine($"OnIntent called for session {session.SessionId}");
+
             var intent = request.Intent;
             var intentName = intent?.Name;
 
+            Trace.WriteLine($"Intent name: {intentName}");
+            
             if ("ChordIntent".Equals(intentName))
             {
                 var chord = intent.Slots["chord"];
+
+                Trace.WriteLine($"Chord was : {chord.Name}, {chord.Value}");
                 return BuildSpeechletResponse("Chord", "You said " + chord.Value, false);
             }
 
@@ -30,6 +39,7 @@ namespace Chords
 
         public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
         {
+            Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
         }
 
         private SpeechletResponse BuildSpeechletResponse(string title, string output, bool shouldEndSession)
