@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
 
@@ -21,22 +22,31 @@ namespace Chords
         {
             Trace.WriteLine($"OnIntent called for session {session.SessionId}");
 
-            var intent = request.Intent;
-            var intentName = intent?.Name;
-
-            Trace.WriteLine($"Intent name: {intentName}");
-            
-            if ("ChordIntent".Equals(intentName))
+            try
             {
-                var chord = intent.Slots["chord"];
-                Trace.WriteLine($"Chord was: {chord.Value}");
+                var intent = request.Intent;
+                var intentName = intent?.Name;
 
-                var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
-                Trace.WriteLine($"Notes are : {spokenNotes}");
+                Trace.WriteLine($"Intent name: {intentName}");
+            
+                if ("ChordIntent".Equals(intentName))
+                {
+                    var chord = intent.Slots["chord"];
+                    Trace.WriteLine($"Chord was: {chord.Value}");
 
-                return BuildPlainResponse(spokenNotes, false);
+                    var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
+                    Trace.WriteLine($"Notes are : {spokenNotes}");
+
+                    return BuildPlainResponse(spokenNotes, false);
+                }
+
             }
-
+            catch (Exception e)
+            {
+                Trace.WriteLine($"About to fail with error {e}");
+                throw;
+            }
+            
             Trace.WriteLine("About to fail");
             throw new SpeechletException("Invalid Intent");
         }
