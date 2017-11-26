@@ -102,11 +102,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Chord.cs" />
+    <Compile Include="ChordFinder.cs" />
+    <Compile Include="ChordLookup.cs" />
+    <Compile Include="ChordName.cs" />
     <Compile Include="ChordSpeechlet.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Note.cs" />
+    <Compile Include="Notes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

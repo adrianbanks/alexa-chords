@@ -29,9 +29,10 @@ namespace Chords
             if ("ChordIntent".Equals(intentName))
             {
                 var chord = intent.Slots["chord"];
-
                 Trace.WriteLine($"Chord was: {chord.Value}");
-                return BuildSsmlResponse($"<speak>You said <break time=\"100ms\"/> <emphasis level=\"strong\">{chord.Value}</emphasis></speak>", false);
+
+                var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
+                return BuildPlainResponse(spokenNotes, false);
             }
 
             Trace.WriteLine("About to fail");
