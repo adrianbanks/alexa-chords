@@ -32,6 +32,8 @@ namespace Chords
                 Trace.WriteLine($"Chord was: {chord.Value}");
 
                 var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
+                Trace.WriteLine($"Notes are : {spokenNotes}");
+
                 return BuildPlainResponse(spokenNotes, false);
             }
 
