@@ -34,6 +34,11 @@ namespace Chords
                     var chord = intent.Slots["chord"];
                     Trace.WriteLine($"Chord was: {chord.Value}");
 
+                    if (string.IsNullOrEmpty(chord.Value))
+                    {
+                        return BuildPlainResponse("Didn't recognise that chord", false);
+                    }
+                    
                     var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
                     Trace.WriteLine($"Notes are : {spokenNotes}");
 

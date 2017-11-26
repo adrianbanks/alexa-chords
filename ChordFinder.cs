@@ -36,7 +36,7 @@ namespace Chords
                 case "c":
                 case "c major":
                     return ChordName.CMajor;
-                case "g":
+                case "g.":
                 case "g major":
                     return ChordName.GMajor;
                 default: 
