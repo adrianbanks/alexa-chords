@@ -30,11 +30,14 @@ namespace Chords
             {
                 case "b. flat":
                     return ChordName.BFlat;
-                case "f. major":
+                case "f":
+                case "f major":
                     return ChordName.FMajor;
-                case "c. major":
+                case "c":
+                case "c major":
                     return ChordName.CMajor;
-                case "g. major":
+                case "g":
+                case "g major":
                     return ChordName.GMajor;
                 default: 
                     return null;
