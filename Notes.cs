@@ -6,7 +6,7 @@
         public static readonly Note A = new Note("A");
         public static readonly Note BFlat = new Note("B flat");
         public static readonly Note B = new Note("B");
-        public static readonly Note C = new Note("F");
+        public static readonly Note C = new Note("C");
         public static readonly Note CSharp = new Note("C sharp");
         public static readonly Note D = new Note("D");
         public static readonly Note EFlat = new Note("E flat");
