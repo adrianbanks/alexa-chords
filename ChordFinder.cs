@@ -2,10 +2,10 @@
 {
     public sealed class ChordFinder
     {
-        public Note[] GetNotesInChord(string chord)
+        public Chord GetChord(string chord)
         {
             var chordName = FindChordName(chord);
-            return chordName == null ? null : new ChordLookup().GetNotes(chordName.Value);
+            return chordName == null ? null : new ChordLookup().GetChord(chordName.Value);
         }
 
         private ChordName? FindChordName(string chord)

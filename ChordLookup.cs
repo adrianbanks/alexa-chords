@@ -28,10 +28,10 @@ namespace Chords
             chords = allChords.ToDictionary(c => c.Name, c => c);
         }
 
-        public Note[] GetNotes(ChordName chordName)
+        public Chord GetChord(ChordName chordName)
         {
             return chords.TryGetValue(chordName, out Chord chord)
-                ? chord.Notes
+                ? chord
                 : null;
         }
     }

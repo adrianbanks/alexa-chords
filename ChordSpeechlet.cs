@@ -32,27 +32,26 @@ namespace Chords
             
                 if ("ChordIntent".Equals(intentName))
                 {
-                    var chord = intent.Slots["chord"];
-                    Trace.WriteLine($"Chord was: {chord.Value}");
+                    var chordName = intent.Slots["chord"];
+                    Trace.WriteLine($"Chord was: {chordName.Value}");
 
-                    if (string.IsNullOrEmpty(chord.Value))
+                    if (string.IsNullOrEmpty(chordName.Value))
                     {
                         return BuildPlainResponse("Didn't recognise that chord", false);
                     }
 
-                    var notes = new ChordFinder().GetNotesInChord(chord.Value);
+                    var chord = new ChordFinder().GetChord(chordName.Value);
                     
-                    if (notes == null)
+                    if (chord == null)
                     {
-                        return BuildPlainResponse($"Could not find chord {chord}", false);
+                        return BuildPlainResponse($"Could not find chord {chordName}", false);
                     }
 
-                    var spokenNotes = string.Join(" ", notes.Select(n => n.ToSpoken()));
+                    var spokenNotes = string.Join(" ", chord.Notes.Select(n => n.ToSpoken()));
                     Trace.WriteLine($"Notes are : {spokenNotes}");
 
                     return BuildPlainResponse(spokenNotes, false);
                 }
-
             }
             catch (Exception e)
             {
