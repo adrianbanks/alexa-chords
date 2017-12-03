@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
 
@@ -38,8 +39,15 @@ namespace Chords
                     {
                         return BuildPlainResponse("Didn't recognise that chord", false);
                     }
+
+                    var notes = new ChordFinder().GetNotesInChord(chord.Value);
                     
-                    var spokenNotes = new ChordFinder().GetNotesInChord(chord.Value);
+                    if (notes == null)
+                    {
+                        return BuildPlainResponse($"Could not find chord {chord}", false);
+                    }
+
+                    var spokenNotes = string.Join(" ", notes.Select(n => n.ToSpoken()));
                     Trace.WriteLine($"Notes are : {spokenNotes}");
 
                     return BuildPlainResponse(spokenNotes, false);
