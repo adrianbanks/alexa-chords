@@ -44,7 +44,7 @@ namespace Chords
                     
                     if (chord == null)
                     {
-                        return BuildPlainResponse($"Could not find chord {chordName}", false);
+                        return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
                     }
 
                     var spokenNotes = chord.Notes.ToSpoken();
