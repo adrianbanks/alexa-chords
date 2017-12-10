@@ -97,22 +97,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChordModel.cs" />
+    <Compile Include="Domain\Chord.cs" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Chord.cs" />
     <Compile Include="ChordFinder.cs" />
-    <Compile Include="ChordLookup.cs" />
-    <Compile Include="ChordName.cs" />
     <Compile Include="ChordSpeechlet.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Domain\ChordName.cs" />
+    <Compile Include="Domain\ChordNames.cs" />
+    <Compile Include="Domain\Note.cs" />
+    <Compile Include="Domain\NoteAdder.cs" />
+    <Compile Include="Domain\NoteExtensions.cs" />
+    <Compile Include="Domain\Positions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Note.cs" />
-    <Compile Include="Notes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,7 +127,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

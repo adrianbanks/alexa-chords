@@ -1,63 +1,59 @@
-﻿namespace Chords
-{
-    public sealed class ChordFinder
-    {
-        public Chord GetChord(string chord)
-        {
-            var chordName = FindChordName(chord);
-            return chordName == null ? null : new ChordLookup().GetChord(chordName.Value);
-        }
+﻿using Chords.Domain;
 
-        private ChordName? FindChordName(string chord)
+namespace Chords
+{
+    internal sealed class ChordFinder
+    {
+        public Chord GetChord(string chordName)
         {
-            switch (chord.ToLower())
+            switch (chordName.ToLower())
             {
                 case "a":
                 case "a. major":
-                    return ChordName.AMajor;
+                    return ChordNames.Major.RootAt(Note.A);
                 case "a sharp":
                 case "a sharp major":
                 case "b. flat":
                 case "b. flat major":
-                    return ChordName.BFlatMajor;
+                    return ChordNames.Major.RootAt(Note.BFlat);
                 case "b":
                 case "b. major":
-                    return ChordName.BMajor;
+                    return ChordNames.Major.RootAt(Note.B);
                 case "c":
                 case "c major":
-                    return ChordName.CMajor;
+                    return ChordNames.Major.RootAt(Note.C);
                 case "c sharp":
                 case "c sharp major":
                 case "d flat":
                 case "d flat major":
-                    return ChordName.CSharpMajor;
+                    return ChordNames.Major.RootAt(Note.CSharp);
                 case "d":
                 case "d major":
-                    return ChordName.DMajor;
+                    return ChordNames.Major.RootAt(Note.D);
                 case "d sharp":
                 case "d sharp major":
                 case "e flat":
                 case "e flat major":
-                    return ChordName.EFlatMajor;
+                    return ChordNames.Major.RootAt(Note.EFlat);
                 case "e":
                 case "e major":
-                    return ChordName.EMajor;
+                    return ChordNames.Major.RootAt(Note.E);
                 case "f":
                 case "f major":
-                    return ChordName.FMajor;
+                    return ChordNames.Major.RootAt(Note.F);
                 case "f sharp":
                 case "f sharp major":
                 case "g flat":
                 case "g flat major":
-                    return ChordName.FSharpMajor;
+                    return ChordNames.Major.RootAt(Note.FSharp);
                 case "g.":
                 case "g major":
-                    return ChordName.GMajor;
+                    return ChordNames.Major.RootAt(Note.G);
                 case "g sharp":
                 case "g sharp major":
                 case "a flat":
                 case "a flat major":
-                    return ChordName.AFlatMajor;
+                    return ChordNames.Major.RootAt(Note.AFlat);
                 default: 
                     return null;
             }

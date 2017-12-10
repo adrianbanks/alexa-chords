@@ -1,13 +1,15 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
+using Chords.Domain;
 
 namespace Chords.Controllers
 {
     public sealed class DefaultController : ApiController
     {
-        public Chord Get(string chord = "")
+        public ChordModel Get(string chord = "")
         {
-            return new ChordFinder().GetChord(chord);
+            var foundChord = new ChordFinder().GetChord(chord);
+            return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToDisplay()) : null;
         }
         
         public HttpResponseMessage Post()
