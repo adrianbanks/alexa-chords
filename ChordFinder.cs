@@ -57,7 +57,7 @@ namespace Chords
                     return ChordNames.Major.RootAt(Note.AFlat);
                     
                 // minor
-                case "a. minor":
+                case "a minor":
                     return ChordNames.Minor.RootAt(Note.A);
                 case "a sharp minor":
                 case "b. flat minor":
@@ -79,11 +79,11 @@ namespace Chords
                 case "f minor":
                     return ChordNames.Minor.RootAt(Note.F);
                 case "f sharp minor":
-                case "g flat minor":
+                case "g. flat minor":
                     return ChordNames.Minor.RootAt(Note.FSharp);
-                case "g minor":
+                case "g. minor":
                     return ChordNames.Minor.RootAt(Note.G);
-                case "g sharp minor":
+                case "g. sharp minor":
                 case "a flat minor":
                     return ChordNames.Minor.RootAt(Note.AFlat);
 
