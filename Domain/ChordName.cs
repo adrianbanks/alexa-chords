@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using static Chords.Domain.NoteAdder;
 
 namespace Chords.Domain
 {
@@ -15,14 +17,7 @@ namespace Chords.Domain
 
         public Chord RootAt(Note rootNote)
         {
-            var notes = new List<Note>();
-
-            foreach (var position in Positions)
-            {
-                var note = NoteAdder.Add(rootNote, position);
-                notes.Add(note);
-            }
-            
+            var notes = Positions.Select(position => Add(rootNote, position)).ToList();
             return new Chord(rootNote, this, notes);
         }
 
