@@ -40,7 +40,7 @@ namespace Chords
         {
             var chordName = string.Join(" ", chordWords);
 
-            return typeof(ChordNames)
+            return typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
                 .Select(field => (ChordName) field.GetValue(null))
                 .FirstOrDefault(value => value.Name == chordName);
