@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using AlexaSkillsKit.Slu;
@@ -40,7 +39,7 @@ namespace Chords
 
                 if ("AMAZON.CancelIntent".Equals(intentName) || "AMAZON.StopIntent".Equals(intentName))
                 {
-                    return BuildPlainResponse("okey dokey", true);
+                    return BuildSsmlResponse("<say-as interpret-as='interjection'>okey dokey.</say-as>", true);
                 }
             }
             catch (Exception e)
@@ -70,9 +69,10 @@ namespace Chords
                 return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
             }
 
-            var spokenNotes = chord.Notes.ToSpoken();
-            Trace.WriteLine($"Notes are : {spokenNotes}");
-            return BuildSsmlResponse(chord.Notes, false);
+            Trace.WriteLine($"Notes are : {chord.Notes.ToSpoken()}");
+            var spokenNotes = chord.Notes.Select(n => n.ToSpoken());
+            string ssml = string.Join("<break strength='medium'/>", spokenNotes);
+            return BuildSsmlResponse(ssml, false);
         }
 
         public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
@@ -89,14 +89,11 @@ namespace Chords
             };
         }
 
-        private SpeechletResponse BuildSsmlResponse(IEnumerable<Note> notes, bool shouldEndSession)
+        private SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
         {
-            var spokenNotes = notes.Select(n => n.ToSpoken());
-            string ssml = $"<speak>{string.Join("<break strength='medium'/>", spokenNotes)}</speak>";
-
             return new SpeechletResponse
             {
-                OutputSpeech = new SsmlOutputSpeech { Ssml = ssml },
+                OutputSpeech = new SsmlOutputSpeech { Ssml = $"<speak>{output}</speak>" },
                 ShouldEndSession = shouldEndSession
             };
         }
