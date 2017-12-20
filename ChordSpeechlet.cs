@@ -68,7 +68,7 @@ namespace Chords
         {
             Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
         }
-
+        
         private SpeechletResponse BuildPlainResponse(string output, bool shouldEndSession)
         {
             return new SpeechletResponse
@@ -81,7 +81,7 @@ namespace Chords
         private SpeechletResponse BuildSsmlResponse(IEnumerable<Note> notes, bool shouldEndSession)
         {
             var spokenNotes = notes.Select(n => n.ToSpoken());
-            string ssml = $"<speak><s>{string.Join("</s><s>", spokenNotes)}</s></speak>";
+            string ssml = $"<speak>{string.Join("<break strength='medium'/>", spokenNotes)}</speak>";
 
             return new SpeechletResponse
             {
