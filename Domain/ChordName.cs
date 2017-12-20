@@ -6,12 +6,12 @@ namespace Chords.Domain
 {
     internal sealed class ChordName
     {
-        public string Name { get; }
+        public string[] Names { get; }
         public IEnumerable<Positions> Positions { get; }
 
-        public ChordName(string name, params Positions[] positions)
+        public ChordName(ChordNames names, params Positions[] positions)
         {
-            Name = name;
+            Names = names;
             Positions = positions;
         }
 
@@ -23,7 +23,7 @@ namespace Chords.Domain
 
         public override string ToString()
         {
-            return Name;
+            return Names.First();
         }
     }
 }

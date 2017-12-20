@@ -43,7 +43,7 @@ namespace Chords
             return typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
                 .Select(field => (ChordName) field.GetValue(null))
-                .FirstOrDefault(value => value.Name == chordName);
+                .FirstOrDefault(chord => chord.Names.Any(name => name == chordName));
         }
     }
 }

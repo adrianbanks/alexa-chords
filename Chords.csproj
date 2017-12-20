@@ -111,6 +111,7 @@
     <Compile Include="ChordSpeechlet.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Domain\ChordName.cs" />
+    <Compile Include="Domain\ChordNames.cs" />
     <Compile Include="Domain\KnownChords.cs" />
     <Compile Include="Domain\Note.cs" />
     <Compile Include="Domain\NoteAdder.cs" />
