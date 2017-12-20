@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AlexaSkillsKit.Slu;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
 using Chords.Domain;
@@ -34,24 +35,12 @@ namespace Chords
             
                 if ("ChordIntent".Equals(intentName))
                 {
-                    var chordName = intent.Slots["chord"];
-                    Trace.WriteLine($"Chord was: {chordName.Value}");
+                    return ProcessChord(intent);
+                }
 
-                    if (string.IsNullOrEmpty(chordName.Value))
-                    {
-                        return BuildPlainResponse("Didn't recognise that chord", false);
-                    }
-
-                    var chord = new ChordFinder().GetChord(chordName.Value);
-                    
-                    if (chord == null)
-                    {
-                        return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
-                    }
-
-                    var spokenNotes = chord.Notes.ToSpoken();
-                    Trace.WriteLine($"Notes are : {spokenNotes}");
-                    return BuildSsmlResponse(chord.Notes, false);
+                if ("AMAZON.CancelIntent".Equals(intentName) || "AMAZON.StopIntent".Equals(intentName))
+                {
+                    return BuildPlainResponse("okey dokey", true);
                 }
             }
             catch (Exception e)
@@ -62,6 +51,28 @@ namespace Chords
             
             Trace.WriteLine("About to fail");
             throw new SpeechletException("Invalid Intent");
+        }
+
+        private SpeechletResponse ProcessChord(Intent intent)
+        {
+            var chordName = intent.Slots["chord"];
+            Trace.WriteLine($"Chord was: {chordName.Value}");
+
+            if (string.IsNullOrEmpty(chordName.Value))
+            {
+                return BuildPlainResponse("Didn't recognise that chord", false);
+            }
+
+            var chord = new ChordFinder().GetChord(chordName.Value);
+
+            if (chord == null)
+            {
+                return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
+            }
+
+            var spokenNotes = chord.Notes.ToSpoken();
+            Trace.WriteLine($"Notes are : {spokenNotes}");
+            return BuildSsmlResponse(chord.Notes, false);
         }
 
         public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
