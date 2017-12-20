@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
 using Chords.Domain;
@@ -49,7 +51,7 @@ namespace Chords
 
                     var spokenNotes = chord.Notes.ToSpoken();
                     Trace.WriteLine($"Notes are : {spokenNotes}");
-                    return BuildPlainResponse(spokenNotes, false);
+                    return BuildSsmlResponse(chord.Notes, false);
                 }
             }
             catch (Exception e)
@@ -76,11 +78,14 @@ namespace Chords
             };
         }
 
-        private SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
+        private SpeechletResponse BuildSsmlResponse(IEnumerable<Note> notes, bool shouldEndSession)
         {
+            var spokenNotes = notes.Select(n => n.ToSpoken());
+            string ssml = $"<speak><s>{string.Join("</s><s>", spokenNotes)}</s></speak>";
+
             return new SpeechletResponse
             {
-                OutputSpeech = new SsmlOutputSpeech { Ssml = output },
+                OutputSpeech = new SsmlOutputSpeech { Ssml = ssml },
                 ShouldEndSession = shouldEndSession
             };
         }

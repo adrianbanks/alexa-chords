@@ -26,14 +26,14 @@ namespace Chords.Domain
             
             foreach (var note in notes)
             {
-                sb.Append(note.ToFriendlyString());
+                sb.Append(note.ToSpoken());
                 sb.Append(" ");
             }
             
             return sb.ToString().Trim();
         }
         
-        private static string ToFriendlyString(this Enum enumType)
+        public static string ToSpoken(this Note enumType)
         {
             var capitalLetterMatch = new Regex("\\B[A-Z]", RegexOptions.Compiled);
             return capitalLetterMatch.Replace(enumType.ToString(), " $&");
