@@ -6,6 +6,7 @@ namespace Chords.Domain
         MinorThird = 3,
         Third = 4,
         Fifth = 7,
-        Seventh = 10
+        MinorSeventh = 10,
+        Seventh = 11
     }
 }
