@@ -6,9 +6,13 @@ namespace Chords.Domain
             (ChordNames) "" | "major", 
             Positions.First, Positions.Third, Positions.Fifth);
 
+        public static ChordShape Seventh = new ChordShape(
+            (ChordNames) "7" | "7th", 
+            Positions.First, Positions.Third, Positions.Fifth, Positions.MinorSeventh);
+        
         public static ChordShape Major7 = new ChordShape(
             (ChordNames) "major 7" | "major 7th", 
-            Positions.First, Positions.Third, Positions.Fifth, Positions.MinorSeventh);
+            Positions.First, Positions.Third, Positions.Fifth, Positions.Seventh);
         
         public static ChordShape Minor = new ChordShape(
             "minor", 
