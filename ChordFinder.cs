@@ -9,11 +9,11 @@ namespace Chords
     {
         public Chord  GetChord(string spokenChordName)
         {
-            (Note note, ChordName chord) = Match(spokenChordName);
+            (Note note, ChordShape chord) = Match(spokenChordName);
             return chord.RootAt(note);
         }
 
-        private (Note note, ChordName chord) Match(string chordName)
+        private (Note note, ChordShape chord) Match(string chordName)
         {
             var sanitisedChordName = chordName.Replace(".", string.Empty).ToLower();
             var words = sanitisedChordName.Split(' ');
@@ -36,13 +36,13 @@ namespace Chords
             return (sharpFlatNote, words.Skip(2).ToArray());
         }
 
-        private ChordName MatchChord(string[] chordWords)
+        private ChordShape MatchChord(string[] chordWords)
         {
             var chordName = string.Join(" ", chordWords);
 
             return typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
-                .Select(field => (ChordName) field.GetValue(null))
+                .Select(field => (ChordShape) field.GetValue(null))
                 .FirstOrDefault(chord => chord.Names.Any(name => name == chordName));
         }
     }

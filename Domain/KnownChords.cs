@@ -2,19 +2,19 @@ namespace Chords.Domain
 {
     internal static class KnownChords
     {
-        public static ChordName Major = new ChordName(
+        public static ChordShape Major = new ChordShape(
             (ChordNames) "" | "major", 
             Positions.First, Positions.Third, Positions.Fifth);
 
-        public static ChordName Major7 = new ChordName(
+        public static ChordShape Major7 = new ChordShape(
             (ChordNames) "major 7" | "major 7th", 
             Positions.First, Positions.Third, Positions.Fifth, Positions.MinorSeventh);
         
-        public static ChordName Minor = new ChordName(
+        public static ChordShape Minor = new ChordShape(
             "minor", 
             Positions.First, Positions.MinorThird, Positions.Fifth);
 
-        public static ChordName Minor7 = new ChordName(
+        public static ChordShape Minor7 = new ChordShape(
             (ChordNames) "minor 7" | "minor 7th", 
             Positions.First, Positions.MinorThird, Positions.Fifth, Positions.MinorSeventh);
     }

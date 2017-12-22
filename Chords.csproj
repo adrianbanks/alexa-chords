@@ -110,7 +110,7 @@
     <Compile Include="ChordFinder.cs" />
     <Compile Include="ChordSpeechlet.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Domain\ChordName.cs" />
+    <Compile Include="Domain\ChordShape.cs" />
     <Compile Include="Domain\ChordNames.cs" />
     <Compile Include="Domain\KnownChords.cs" />
     <Compile Include="Domain\Note.cs" />

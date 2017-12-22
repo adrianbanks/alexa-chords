@@ -4,12 +4,12 @@ using static Chords.Domain.NoteAdder;
 
 namespace Chords.Domain
 {
-    internal sealed class ChordName
+    internal sealed class ChordShape
     {
         public string[] Names { get; }
         public IEnumerable<Positions> Positions { get; }
 
-        public ChordName(ChordNames names, params Positions[] positions)
+        public ChordShape(ChordNames names, params Positions[] positions)
         {
             Names = names;
             Positions = positions;
