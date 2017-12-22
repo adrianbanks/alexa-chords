@@ -4,22 +4,22 @@ namespace Chords.Domain
     {
         public static ChordShape Major = new ChordShape(
             (ChordNames) "" | "major", 
-            Positions.First, Positions.Third, Positions.Fifth);
+            Positions.Unison, Positions.MajorThird, Positions.PerfectFifth);
 
         public static ChordShape Seventh = new ChordShape(
             (ChordNames) "7" | "7th", 
-            Positions.First, Positions.Third, Positions.Fifth, Positions.MinorSeventh);
+            Positions.Unison, Positions.MajorThird, Positions.PerfectFifth, Positions.MinorSeventh);
         
         public static ChordShape Major7 = new ChordShape(
             (ChordNames) "major 7" | "major 7th", 
-            Positions.First, Positions.Third, Positions.Fifth, Positions.Seventh);
+            Positions.Unison, Positions.MajorThird, Positions.PerfectFifth, Positions.MajorSeventh);
         
         public static ChordShape Minor = new ChordShape(
             "minor", 
-            Positions.First, Positions.MinorThird, Positions.Fifth);
+            Positions.Unison, Positions.MinorThird, Positions.PerfectFifth);
 
         public static ChordShape Minor7 = new ChordShape(
             (ChordNames) "minor 7" | "minor 7th", 
-            Positions.First, Positions.MinorThird, Positions.Fifth, Positions.MinorSeventh);
+            Positions.Unison, Positions.MinorThird, Positions.PerfectFifth, Positions.MinorSeventh);
     }
 }
