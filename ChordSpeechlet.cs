@@ -77,7 +77,7 @@ namespace Chords
 
             Trace.WriteLine($"Notes are : {string.Join(", ", chord.Notes)}");
 
-            var ssml = $"Notes in {chord.Name} are {chord.ToNotesSsml()}";
+            var ssml = $"Notes in {chord.Name} <break strength='medium'/> are <break strength='medium'/> {chord.ToNotesSsml()}";
             return BuildSsmlResponse(ssml, false);
         }
 
