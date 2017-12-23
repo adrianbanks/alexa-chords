@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http;
 using Chords.Domain;
 
@@ -8,8 +9,16 @@ namespace Chords.Controllers
     {
         public ChordModel Get(string chord = "")
         {
-            var foundChord = new ChordFinder().GetChord(chord);
-            return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToSpoken()) : null;
+            try
+            {
+                var foundChord = new ChordFinder().GetChord(chord);
+                return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToSpoken()) : null;
+
+            }
+            catch (ChordNotFoundException exception)
+            {
+                throw new Exception($"Didn't recognise chord '{string.Join(" ", exception.Words)}'");
+            }
         }
         
         public HttpResponseMessage Post()

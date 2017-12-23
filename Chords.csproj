@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChordModel.cs" />
+    <Compile Include="ChordNotFoundException.cs" />
     <Compile Include="Domain\Chord.cs" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

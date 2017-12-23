@@ -8,7 +8,7 @@ using Chords.Domain;
 
 namespace Chords
 {
-    public class ChordSpeechlet : Speechlet
+    public sealed class ChordSpeechlet : Speechlet
     {
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
@@ -61,12 +61,25 @@ namespace Chords
             {
                 return BuildPlainResponse("Didn't recognise that chord", false);
             }
-
-            var chord = new ChordFinder().GetChord(chordName.Value);
+            
+            try
+            {
+                return ProceeChord(chordName.Value);
+            }
+            catch (ChordNotFoundException exception)
+            {
+                var chord = string.Join(" ", exception.Words);
+                return BuildPlainResponse($"Didn't recognise chord {chord}", false);
+            }
+        }
+        
+        private SpeechletResponse ProceeChord(string chordName)
+        {
+            var chord = new ChordFinder().GetChord(chordName);
 
             if (chord == null)
             {
-                return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
+                return BuildPlainResponse($"Could not find chord {chordName}", false);
             }
 
             var spokenNotes = chord.Notes.Select(n => n.ToSpoken()).ToList();
