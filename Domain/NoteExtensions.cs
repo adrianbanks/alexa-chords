@@ -13,7 +13,7 @@ namespace Chords.Domain
             var modifier = spoken.Substring(1).ToLower();
 
             return addSpellingNotation 
-                ? $"<say-as interpret-as='character'>{note}</say-as>" + modifier 
+                ? $"<say-as interpret-as='characters'>{note}</say-as>" + modifier 
                 : note + modifier;
         }
     }
