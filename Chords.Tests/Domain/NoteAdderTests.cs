@@ -42,7 +42,7 @@ namespace Chords.Tests.Domain
         [TestCase(Positions.Ninth, Note.D)]
         [TestCase(Positions.Eleventh, Note.F)]
         [TestCase(Positions.Thirteenth, Note.A)]
-        public void NotesAreAddedCorrectly(Positions position, Note expectedNote)
+        public void NotesCanBeAddedTogetherCorrectly(Positions position, Note expectedNote)
         {
             var result = NoteAdder.Add(Note.C, position);
             Assert.That(result, Is.EqualTo(expectedNote));
