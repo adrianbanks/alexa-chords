@@ -14,11 +14,6 @@ namespace Chords.Controllers
             {
                 var foundChord = new ChordFinder().GetChord(chord);
 
-                if (foundChord == null)
-                {
-                    return null;
-                }
-
                 var chordNote = foundChord.RootNote.ToSpoken();
                 var name = $"{chordNote} {foundChord.ChordShape}";
                 var notes = string.Join(", ", foundChord.Notes.Select(n => n.ToSpoken()));
