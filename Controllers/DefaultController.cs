@@ -9,7 +9,7 @@ namespace Chords.Controllers
         public ChordModel Get(string chord = "")
         {
             var foundChord = new ChordFinder().GetChord(chord);
-            return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToDisplay()) : null;
+            return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToSpoken()) : null;
         }
         
         public HttpResponseMessage Post()

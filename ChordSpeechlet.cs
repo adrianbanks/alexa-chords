@@ -69,9 +69,9 @@ namespace Chords
                 return BuildPlainResponse($"Could not find chord {chordName.Value}", false);
             }
 
-            Trace.WriteLine($"Notes are : {chord.Notes.ToSpoken()}");
-            var spokenNotes = chord.Notes.Select(n => n.ToSpoken());
-            string ssml = string.Join("<break strength='medium'/>", spokenNotes);
+            var spokenNotes = chord.Notes.Select(n => n.ToSpoken()).ToList();
+            Trace.WriteLine($"Notes are : {string.Join(", ", spokenNotes)}");
+            string ssml = $"Notes in {chord.Name} are " + string.Join("<break strength='medium'/>", spokenNotes);
             return BuildSsmlResponse(ssml, false);
         }
 

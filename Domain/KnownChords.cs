@@ -23,3 +23,4 @@ namespace Chords.Domain
             Positions.Root, Positions.MinorThird, Positions.Fifth, Positions.MinorSeventh);
     }
 }
+ 
