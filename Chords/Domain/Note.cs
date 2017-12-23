@@ -1,6 +1,6 @@
 namespace Chords.Domain
 {
-    internal enum Note
+    public enum Note
     {
         A = 0,
         BFlat = 1,
