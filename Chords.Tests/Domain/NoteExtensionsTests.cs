@@ -26,7 +26,7 @@ namespace Chords.Tests.Domain
         public void PreferredNameIsUsed(Note note, string expected)
         {
             var spoken = note.ToSpoken();
-            Assert.That(expected, Is.EqualTo(spoken));
+            Assert.That(spoken, Is.EqualTo(expected));
         }
     }
 }
