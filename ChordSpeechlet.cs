@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using AlexaSkillsKit.Slu;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.UI;
-using Chords.Domain;
 
 namespace Chords
 {
@@ -77,11 +75,9 @@ namespace Chords
         {
             var chord = new ChordFinder().GetChord(chordName);
 
-            var notes = chord.Notes.Select(n => n.ToSpoken()).ToList();
-            Trace.WriteLine($"Notes are : {string.Join(", ", notes)}");
+            Trace.WriteLine($"Notes are : {string.Join(", ", chord.Notes)}");
 
-            var spokenNotes = chord.Notes.Select(n => n.ToSpoken(true)).ToList();
-            var ssml = $"Notes in {chord.Name} are " + string.Join("<break strength='medium'/>", spokenNotes);
+            var ssml = $"Notes in {chord.Name} are {chord.ToNotesSsml()}";
             return BuildSsmlResponse(ssml, false);
         }
 

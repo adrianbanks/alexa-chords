@@ -8,16 +8,13 @@ namespace Chords.Controllers
 {
     public sealed class DefaultController : ApiController
     {
-        public ChordModel Get(string chord = "")
+        public ChordModel Get(string chord = "", bool includeSsml = false)
         {
             try
             {
                 var foundChord = new ChordFinder().GetChord(chord);
-
-                var chordNote = foundChord.RootNote.ToSpoken();
-                var name = $"{chordNote} {foundChord.ChordShape}";
-                var notes = string.Join(", ", foundChord.Notes.Select(n => n.ToSpoken()));
-                return new ChordModel(name, notes);
+                var notes = includeSsml ? foundChord.ToNotesSsml() : string.Join(", ", foundChord.Notes.Select(n => n.ToSpoken()));
+                return new ChordModel(foundChord.Name, notes);
             }
             catch (ChordNotFoundException exception)
             {
