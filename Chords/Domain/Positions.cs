@@ -1,6 +1,6 @@
 namespace Chords.Domain
 {
-    internal enum Positions
+    public enum Positions
     {
         // https://en.wikipedia.org/wiki/Interval_(music)
         
