@@ -80,7 +80,7 @@ namespace Chords
 
             Trace.WriteLine($"Notes are : {string.Join(", ", spokenNotes)}");
             
-            string ssml = $"Notes in {chord.Name} are " + string.Join("<break strength='medium'/>", spokenNotes);
+            string ssml = $"Notes in {chord.Name.ToSpoken()} are " + string.Join("<break strength='medium'/>", spokenNotes);
             return BuildSsmlResponse(ssml, false);
         }
 

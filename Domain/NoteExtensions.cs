@@ -21,8 +21,13 @@ namespace Chords.Domain
         
         public static string ToSpoken(this Note enumType)
         {
+            return ToSpoken(enumType.ToString());
+        }
+
+        public static string ToSpoken(this string str)
+        {
             var capitalLetterMatch = new Regex("\\B[A-Z]", RegexOptions.Compiled);
-            return capitalLetterMatch.Replace(enumType.ToString(), " $&");
+            return capitalLetterMatch.Replace(str, " $&");
         }
     }
 }
