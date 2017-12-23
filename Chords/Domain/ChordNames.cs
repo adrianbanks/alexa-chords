@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chords.Domain
 {
     internal sealed class ChordNames
     {
         private readonly List<string> names = new List<string>();
-        
+
+        public IEnumerable<string> Names => names.ToList();
+
         public static ChordNames operator |(ChordNames left, string right)
         {
             var names = new ChordNames();
