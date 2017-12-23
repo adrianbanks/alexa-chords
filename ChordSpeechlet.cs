@@ -52,7 +52,7 @@ namespace Chords
             throw new SpeechletException("Invalid Intent");
         }
 
-        private SpeechletResponse ProcessChord(Intent intent)
+        private static SpeechletResponse ProcessChord(Intent intent)
         {
             var chordName = intent.Slots["chord"];
             Trace.WriteLine($"Chord was: {chordName.Value}");
@@ -64,7 +64,7 @@ namespace Chords
             
             try
             {
-                return ProceeChord(chordName.Value);
+                return ProcessChord(chordName.Value);
             }
             catch (ChordNotFoundException exception)
             {
@@ -73,14 +73,15 @@ namespace Chords
             }
         }
         
-        private SpeechletResponse ProceeChord(string chordName)
+        private static SpeechletResponse ProcessChord(string chordName)
         {
             var chord = new ChordFinder().GetChord(chordName);
-            var spokenNotes = chord.Notes.Select(n => n.ToSpoken()).ToList();
 
-            Trace.WriteLine($"Notes are : {string.Join(", ", spokenNotes)}");
-            
-            string ssml = $"Notes in {chord.Name.ToSpoken()} are " + string.Join("<break strength='medium'/>", spokenNotes);
+            var notes = chord.Notes.Select(n => n.ToSpoken()).ToList();
+            Trace.WriteLine($"Notes are : {string.Join(", ", notes)}");
+
+            var spokenNotes = chord.Notes.Select(n => n.ToSpoken(true)).ToList();
+            var ssml = $"Notes in {chord.Name} are " + string.Join("<break strength='medium'/>", spokenNotes);
             return BuildSsmlResponse(ssml, false);
         }
 
@@ -89,7 +90,7 @@ namespace Chords
             Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
         }
         
-        private SpeechletResponse BuildPlainResponse(string output, bool shouldEndSession)
+        private static SpeechletResponse BuildPlainResponse(string output, bool shouldEndSession)
         {
             return new SpeechletResponse
             {
@@ -98,7 +99,7 @@ namespace Chords
             };
         }
 
-        private SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
+        private static SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
         {
             return new SpeechletResponse
             {

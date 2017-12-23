@@ -4,12 +4,16 @@ namespace Chords.Domain
 {
     internal sealed class Chord
     {
-        public string Name { get; }
+        public Note RootNote { get; }
+        public ChordShape ChordShape { get; }
         public IEnumerable<Note> Notes { get; }
         
+        public string Name => $"{RootNote.ToSpoken()} {ChordShape}";
+
         internal Chord(Note rootNote, ChordShape chordShape, IEnumerable<Note> notes)
         {
-            Name = $"{rootNote} {chordShape}";
+            RootNote = rootNote;
+            ChordShape = chordShape;
             Notes = notes;
         }
     }

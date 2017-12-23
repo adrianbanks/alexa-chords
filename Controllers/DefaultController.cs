@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Chords.Domain;
@@ -12,8 +13,16 @@ namespace Chords.Controllers
             try
             {
                 var foundChord = new ChordFinder().GetChord(chord);
-                return foundChord != null ? new ChordModel(foundChord.Name, foundChord.Notes.ToSpoken()) : null;
 
+                if (foundChord == null)
+                {
+                    return null;
+                }
+
+                var chordNote = foundChord.RootNote.ToSpoken();
+                var name = $"{chordNote} {foundChord.ChordShape}";
+                var notes = string.Join(", ", foundChord.Notes.Select(n => n.ToSpoken()));
+                return new ChordModel(name, notes);
             }
             catch (ChordNotFoundException exception)
             {
