@@ -76,14 +76,10 @@ namespace Chords
         private SpeechletResponse ProceeChord(string chordName)
         {
             var chord = new ChordFinder().GetChord(chordName);
-
-            if (chord == null)
-            {
-                return BuildPlainResponse($"Could not find chord {chordName}", false);
-            }
-
             var spokenNotes = chord.Notes.Select(n => n.ToSpoken()).ToList();
+
             Trace.WriteLine($"Notes are : {string.Join(", ", spokenNotes)}");
+            
             string ssml = $"Notes in {chord.Name} are " + string.Join("<break strength='medium'/>", spokenNotes);
             return BuildSsmlResponse(ssml, false);
         }
