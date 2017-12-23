@@ -10,6 +10,11 @@ namespace Chords.Controllers
     {
         public ChordModel Get(string chord = "", bool includeSsml = false)
         {
+            if (string.IsNullOrEmpty(chord))
+            {
+                throw new Exception($"Didn't recognise that chord");
+            }
+            
             try
             {
                 var foundChord = new ChordFinder().GetChord(chord);
