@@ -21,6 +21,11 @@ namespace Chords
             (Note note, string[] chordWords) = MatchNote(words);
             var chord = MatchChord(chordWords);
 
+            if (chord == null)
+            {
+                throw new ChordNotFoundException(words);
+            }
+
             return (note, chord);
         }
 
