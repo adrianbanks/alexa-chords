@@ -104,6 +104,8 @@
     <Compile Include="ChordNotFoundException.cs" />
     <Compile Include="Domain\Chord.cs" />
     <Compile Include="ChordSsmlExtensions.cs" />
+    <Compile Include="Speech\PlainTextResponseFactory.cs" />
+    <Compile Include="Speech\SsmlResponseFactory.cs" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>

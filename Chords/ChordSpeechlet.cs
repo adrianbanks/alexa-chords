@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using AlexaSkillsKit.Slu;
 using AlexaSkillsKit.Speechlet;
-using AlexaSkillsKit.UI;
+using Chords.Speech;
 
 namespace Chords
 {
@@ -11,7 +11,7 @@ namespace Chords
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
             Trace.WriteLine($"OnLaunch called for session {session.SessionId}");
-            return BuildPlainResponse("Say a chord name", false);
+            return PlainTextResponseFactory.Create("Say a chord name", false);
         }
 
         public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
@@ -37,7 +37,7 @@ namespace Chords
 
                 if ("AMAZON.CancelIntent".Equals(intentName) || "AMAZON.StopIntent".Equals(intentName))
                 {
-                    return BuildSsmlResponse("<say-as interpret-as='interjection'>okey dokey.</say-as>", true);
+                    return SsmlResponseFactory.Create("<say-as interpret-as='interjection'>okey dokey.</say-as>", true);
                 }
             }
             catch (Exception e)
@@ -57,7 +57,7 @@ namespace Chords
 
             if (string.IsNullOrEmpty(chordName.Value))
             {
-                return BuildPlainResponse("Didn't recognise that chord", false);
+                return PlainTextResponseFactory.Create("Didn't recognise that chord", false);
             }
             
             try
@@ -67,7 +67,7 @@ namespace Chords
             catch (ChordNotFoundException exception)
             {
                 var chord = string.Join(" ", exception.Words);
-                return BuildPlainResponse($"Didn't recognise chord {chord}", false);
+                return PlainTextResponseFactory.Create($"Didn't recognise chord {chord}", false);
             }
         }
         
@@ -78,30 +78,12 @@ namespace Chords
             Trace.WriteLine($"Notes are : {string.Join(", ", chord.Notes)}");
 
             var ssml = $"Notes in {chord.Name} <break strength='medium'/> are <break strength='medium'/> {chord.ToNotesSsml()}";
-            return BuildSsmlResponse(ssml, false);
+            return SsmlResponseFactory.Create(ssml, false);
         }
 
         public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
         {
             Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
-        }
-        
-        private static SpeechletResponse BuildPlainResponse(string output, bool shouldEndSession)
-        {
-            return new SpeechletResponse
-            {
-                OutputSpeech = new PlainTextOutputSpeech { Text = output },
-                ShouldEndSession = shouldEndSession
-            };
-        }
-
-        private static SpeechletResponse BuildSsmlResponse(string output, bool shouldEndSession)
-        {
-            return new SpeechletResponse
-            {
-                OutputSpeech = new SsmlOutputSpeech { Ssml = $"<speak>{output}</speak>" },
-                ShouldEndSession = shouldEndSession
-            };
         }
     }
 }
