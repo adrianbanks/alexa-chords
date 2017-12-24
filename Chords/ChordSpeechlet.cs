@@ -37,8 +37,9 @@ namespace Chords
             
                 if ("ChordIntent".Equals(intentName))
                 {
-                    var chordProcessor = new ChordProcessor(logger);
-                    return chordProcessor.ProcessChord(intent);
+                    var chordFinder = new ChordFinder();
+                    var chordProcessor = new ChordProcessor(logger, chordFinder);
+                    return chordProcessor.ProcessChord(intent.Slots["chord"]?.Value);
                 }
 
                 if ("AMAZON.CancelIntent".Equals(intentName) || "AMAZON.StopIntent".Equals(intentName))

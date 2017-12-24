@@ -1,5 +1,4 @@
-﻿using AlexaSkillsKit.Slu;
-using AlexaSkillsKit.Speechlet;
+﻿using AlexaSkillsKit.Speechlet;
 using Chords.Speech;
 
 namespace Chords
@@ -7,36 +6,38 @@ namespace Chords
     internal sealed class ChordProcessor
     {
         private readonly Logger logger;
+        private readonly ChordFinder chordFinder;
 
-        public ChordProcessor(Logger logger)
+        public ChordProcessor(Logger logger, ChordFinder chordFinder)
         {
             this.logger = logger;
+            this.chordFinder = chordFinder;
         }
 
-        public SpeechletResponse ProcessChord(Intent intent)
+        public SpeechletResponse ProcessChord(string chordName)
         {
-            var chordName = intent.Slots["chord"];
-            logger.Log($"Chord was: {chordName.Value}");
+            logger.Log($"Chord was: {chordName}");
 
-            if (string.IsNullOrEmpty(chordName.Value))
+            if (string.IsNullOrWhiteSpace(chordName))
             {
-                return PlainTextResponseFactory.Create("Didn't recognise that chord", false);
+                return PlainTextResponseFactory.Create(Messages.GenericNotRecognisedMessage, false);
             }
             
             try
             {
-                return ProcessChord(chordName.Value);
+                return CreateChordResponse(chordName);
             }
             catch (ChordNotFoundException exception)
             {
                 var chord = string.Join(" ", exception.Words);
-                return PlainTextResponseFactory.Create($"Didn't recognise chord {chord}", false);
+                var message = string.Format(Messages.SpecificNotRecognisedFormatMessage, chord);
+                return PlainTextResponseFactory.Create(message, false);
             }
         }
         
-        private SpeechletResponse ProcessChord(string chordName)
+        private SpeechletResponse CreateChordResponse(string chordName)
         {
-            var chord = new ChordFinder().GetChord(chordName);
+            var chord = chordFinder.GetChord(chordName);
 
             logger.Log($"Notes are : {string.Join(", ", chord.Notes)}");
 
