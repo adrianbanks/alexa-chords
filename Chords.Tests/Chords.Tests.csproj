@@ -61,6 +61,7 @@
     <Compile Include="Domain\NoteAdderTests.cs" />
     <Compile Include="Domain\NoteExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordsSegragationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
