@@ -105,6 +105,7 @@
     <Compile Include="ChordProcessor.cs" />
     <Compile Include="Domain\Chord.cs" />
     <Compile Include="ChordSsmlExtensions.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Speech\PlainTextResponseFactory.cs" />
     <Compile Include="Speech\SsmlResponseFactory.cs" />
     <Content Include="Global.asax" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using AlexaSkillsKit.Speechlet;
 using Chords.Speech;
 
@@ -7,31 +6,39 @@ namespace Chords
 {
     public sealed class ChordSpeechlet : Speechlet
     {
+        private readonly Logger logger;
+        
+        public ChordSpeechlet()
+        {
+            logger = new Logger();
+        }
+
         public override SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session)
         {
-            Trace.WriteLine($"OnLaunch called for session {session.SessionId}");
+            logger.Log($"OnLaunch called for session {session.SessionId}");
             return PlainTextResponseFactory.Create("Say a chord name", false);
         }
 
         public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
         {
-            Trace.WriteLine($"OnSessionStarted called for session {session.SessionId}");
+            logger.Log($"OnSessionStarted called for session {session.SessionId}");
         }
 
         public override SpeechletResponse OnIntent(IntentRequest request, Session session)
         {
-            Trace.WriteLine($"OnIntent called for session {session.SessionId}");
+            logger.Log($"OnIntent called for session {session.SessionId}");
 
             try
             {
                 var intent = request.Intent;
                 var intentName = intent?.Name;
 
-                Trace.WriteLine($"Intent name: {intentName}");
+                logger.Log($"Intent name: {intentName}");
             
                 if ("ChordIntent".Equals(intentName))
                 {
-                    return new ChordProcessor().ProcessChord(intent);
+                    var chordProcessor = new ChordProcessor(logger);
+                    return chordProcessor.ProcessChord(intent);
                 }
 
                 if ("AMAZON.CancelIntent".Equals(intentName) || "AMAZON.StopIntent".Equals(intentName))
@@ -41,17 +48,17 @@ namespace Chords
             }
             catch (Exception e)
             {
-                Trace.WriteLine($"About to fail with error {e}");
+                logger.Log($"About to fail with error {e}");
                 throw;
             }
             
-            Trace.WriteLine("About to fail");
+            logger.Log("About to fail");
             throw new SpeechletException("Invalid Intent");
         }
 
         public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
         {
-            Trace.WriteLine($"OnSessionEnded called for session {session.SessionId}");
+            logger.Log($"OnSessionEnded called for session {session.SessionId}");
         }
     }
 }

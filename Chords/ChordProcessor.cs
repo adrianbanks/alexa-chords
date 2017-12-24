@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using AlexaSkillsKit.Slu;
+﻿using AlexaSkillsKit.Slu;
 using AlexaSkillsKit.Speechlet;
 using Chords.Speech;
 
@@ -7,10 +6,17 @@ namespace Chords
 {
     internal sealed class ChordProcessor
     {
+        private readonly Logger logger;
+
+        public ChordProcessor(Logger logger)
+        {
+            this.logger = logger;
+        }
+
         public SpeechletResponse ProcessChord(Intent intent)
         {
             var chordName = intent.Slots["chord"];
-            Trace.WriteLine($"Chord was: {chordName.Value}");
+            logger.Log($"Chord was: {chordName.Value}");
 
             if (string.IsNullOrEmpty(chordName.Value))
             {
@@ -28,11 +34,11 @@ namespace Chords
             }
         }
         
-        private static SpeechletResponse ProcessChord(string chordName)
+        private SpeechletResponse ProcessChord(string chordName)
         {
             var chord = new ChordFinder().GetChord(chordName);
 
-            Trace.WriteLine($"Notes are : {string.Join(", ", chord.Notes)}");
+            logger.Log($"Notes are : {string.Join(", ", chord.Notes)}");
 
             var ssml = $"Notes in {chord.Name} <break strength='medium'/> are <break strength='medium'/> {chord.ToNotesSsml()}";
             return SsmlResponseFactory.Create(ssml, false);
