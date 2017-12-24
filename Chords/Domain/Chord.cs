@@ -8,7 +8,7 @@ namespace Chords.Domain
         public ChordShape ChordShape { get; }
         public IEnumerable<Note> Notes { get; }
         
-        public string Name => $"{RootNote.ToSpoken()} {ChordShape}";
+        public string Name => $"{RootNote.ToSpoken()} {ChordShape.PreferredName}";
 
         internal Chord(Note rootNote, ChordShape chordShape, IEnumerable<Note> notes)
         {

@@ -9,6 +9,8 @@ namespace Chords.Domain
         public string[] Names { get; }
         public IEnumerable<Positions> Positions { get; }
 
+        public string PreferredName => Names.First();
+        
         public ChordShape(ChordNames names, params Positions[] positions)
         {
             Names = names;
@@ -19,11 +21,6 @@ namespace Chords.Domain
         {
             var notes = Positions.Select(position => Add(rootNote, position)).ToList();
             return new Chord(rootNote, this, notes);
-        }
-
-        public override string ToString()
-        {
-            return Names.First();
         }
     }
 }

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\ChordNamesTests.cs" />
+    <Compile Include="Domain\ChordShapeTests.cs" />
     <Compile Include="Domain\ChordTests.cs" />
     <Compile Include="Domain\NoteAdderTests.cs" />
     <Compile Include="Domain\NoteExtensionsTests.cs" />
