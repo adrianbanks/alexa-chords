@@ -42,9 +42,9 @@ namespace Chords
             throw new ChordNotFoundException(chordName);
         }
 
-        private static ChordShape MatchShape(string chordName, string[] chordWords)
+        private static ChordShape MatchShape(string chordName, string[] shapeWords)
         {
-            var shapeName = string.Join(" ", chordWords);
+            var shapeName = string.Join(" ", shapeWords);
 
             var shape = typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
