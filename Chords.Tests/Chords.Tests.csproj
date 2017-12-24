@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChordFinderTests.cs" />
     <Compile Include="ChordProcessorTests.cs" />
     <Compile Include="Domain\ChordNamesTests.cs" />
     <Compile Include="Domain\ChordShapeTests.cs" />
