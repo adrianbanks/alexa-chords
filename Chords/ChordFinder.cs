@@ -18,13 +18,13 @@ namespace Chords
             var sanitisedChordName = chordName.Replace(".", string.Empty).ToLower();
             var words = sanitisedChordName.Split(' ');
 
-            (Note note, string[] shapeWords) = MatchNote(words);
-            var shape = MatchShape(words, shapeWords);
+            (Note note, string[] shapeWords) = MatchNote(chordName, words);
+            var shape = MatchShape(chordName, shapeWords);
 
             return (note, shape);
         }
 
-        private static (Note note, string[] shapeWords) MatchNote(string[] words)
+        private static (Note note, string[] shapeWords) MatchNote(string chordName, string[] words)
         {
             if (words.Length < 2 || (words[1] != "flat" && words[1] != "sharp"))
             {
@@ -39,21 +39,21 @@ namespace Chords
                 return (sharpFlatNote, words.Skip(2).ToArray());
             }
 
-            throw new ChordNotFoundException(words);
+            throw new ChordNotFoundException(chordName);
         }
 
-        private static ChordShape MatchShape(string[] allWords, string[] chordWords)
+        private static ChordShape MatchShape(string chordName, string[] chordWords)
         {
-            var chordName = string.Join(" ", chordWords);
+            var shapeName = string.Join(" ", chordWords);
 
             var shape = typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
                 .Select(field => (ChordShape) field.GetValue(null))
-                .FirstOrDefault(chord => chord.Names.Any(name => name == chordName));
+                .FirstOrDefault(chord => chord.Names.Any(name => name == shapeName));
             
             if (shape == null)
             {
-                throw new ChordNotFoundException(allWords);
+                throw new ChordNotFoundException(chordName);
             }
             
             return shape;

@@ -23,7 +23,7 @@ namespace Chords.Controllers
             }
             catch (ChordNotFoundException exception)
             {
-                throw new Exception($"Didn't recognise chord '{string.Join(" ", exception.Words)}'");
+                throw new Exception($"Didn't recognise chord '{exception.ChordName}'");
             }
         }
         

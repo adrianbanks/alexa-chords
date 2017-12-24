@@ -29,8 +29,7 @@ namespace Chords
             }
             catch (ChordNotFoundException exception)
             {
-                var chord = string.Join(" ", exception.Words);
-                var message = string.Format(Messages.SpecificNotRecognisedFormatMessage, chord);
+                var message = string.Format(Messages.SpecificNotRecognisedFormatMessage, exception.ChordName);
                 return PlainTextResponseFactory.Create(message, false);
             }
         }

@@ -4,11 +4,11 @@ namespace Chords
 {
     internal sealed class ChordNotFoundException : Exception
     {
-        public string[] Words { get; }
+        public string ChordName { get; }
 
-        public ChordNotFoundException(string[] words)
+        public ChordNotFoundException(string chordName)
         {
-            Words = words;
+            ChordName = chordName;
         }
     }
 }
