@@ -9,27 +9,22 @@ namespace Chords
     {
         public Chord GetChord(string spokenChordName)
         {
-            (Note note, ChordShape chord) = Match(spokenChordName);
-            return chord.RootAt(note);
+            (Note note, ChordShape shape) = Match(spokenChordName);
+            return shape.RootAt(note);
         }
 
-        private static (Note note, ChordShape chord) Match(string chordName)
+        private static (Note note, ChordShape shape) Match(string chordName)
         {
             var sanitisedChordName = chordName.Replace(".", string.Empty).ToLower();
             var words = sanitisedChordName.Split(' ');
 
-            (Note note, string[] chordWords) = MatchNote(words);
-            var chord = MatchChord(chordWords);
+            (Note note, string[] shapeWords) = MatchNote(words);
+            var shape = MatchShape(words, shapeWords);
 
-            if (chord == null)
-            {
-                throw new ChordNotFoundException(words);
-            }
-
-            return (note, chord);
+            return (note, shape);
         }
 
-        private static (Note note, string[] chordWords) MatchNote(string[] words)
+        private static (Note note, string[] shapeWords) MatchNote(string[] words)
         {
             if (words.Length < 2 || (words[1] != "flat" && words[1] != "sharp"))
             {
@@ -47,14 +42,21 @@ namespace Chords
             throw new ChordNotFoundException(words);
         }
 
-        private static ChordShape MatchChord(string[] chordWords)
+        private static ChordShape MatchShape(string[] allWords, string[] chordWords)
         {
             var chordName = string.Join(" ", chordWords);
 
-            return typeof(KnownChords)
+            var shape = typeof(KnownChords)
                 .GetFields(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
                 .Select(field => (ChordShape) field.GetValue(null))
                 .FirstOrDefault(chord => chord.Names.Any(name => name == chordName));
+            
+            if (shape == null)
+            {
+                throw new ChordNotFoundException(allWords);
+            }
+            
+            return shape;
         }
     }
 }
