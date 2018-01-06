@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Chords.Domain;
+using Chords.Speech;
 
 namespace Chords.Controllers
 {
@@ -12,7 +13,7 @@ namespace Chords.Controllers
         {
             if (string.IsNullOrEmpty(chord))
             {
-                throw new Exception($"Didn't recognise that chord");
+                throw new Exception(Messages.GenericNotRecognisedMessage);
             }
             
             try
@@ -23,7 +24,7 @@ namespace Chords.Controllers
             }
             catch (ChordNotFoundException exception)
             {
-                throw new Exception($"Didn't recognise chord '{exception.ChordName}'");
+                throw new Exception(string.Format(Messages.SpecificNotRecognisedFormatMessage, exception.ChordName));
             }
         }
         
