@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using Chords.Domain;
+﻿using Chords.Domain;
 using NUnit.Framework;
 
 namespace Chords.Tests.Domain
