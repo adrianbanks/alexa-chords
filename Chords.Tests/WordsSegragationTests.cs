@@ -37,5 +37,15 @@ namespace Chords.Tests
             Assert.That(segragation.Note, Is.EqualTo(expectedNote).IgnoreCase);
             Assert.That(segragation.Shape, Is.EqualTo(expectedShape));
         }
+
+        [TestCase("C. minor", "C", "minor")]
+        [TestCase("C. sharp minor", "Csharp", "minor")]
+        public void SanitisesInput(string chordName, string expectedNote, string expectedShape)
+        {
+            var segragation = new WordsSegragation(chordName);
+            
+            Assert.That(segragation.Note, Is.EqualTo(expectedNote).IgnoreCase);
+            Assert.That(segragation.Shape, Is.EqualTo(expectedShape));
+        }
     }
 }
